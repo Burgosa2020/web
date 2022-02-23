@@ -1,0 +1,164 @@
+---
+title: The data classes
+author: R package build
+date: '2022-02-23'
+slug: the-data-classes
+categories: []
+tags: []
+---
+# Set up Information
+
+```{r}
+library(tidyverse)
+library(lubridate)
+cat_lovers <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/cat-lovers.csv")
+url<- 'https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/hotels.csv'
+hotels <- read_csv(url)
+
+```
+
+# Factors
+R uses factors to handle categorical variables, variables that have a fixed and known set of possible values
+```{r}
+x <- factor(c("BS", "MS", "PhD", "MS"))
+x
+```
+
+```{r}
+typeof(x)
+```
+```{r}
+class(x)
+```
+
+```{r}
+glimpse(x)
+```
+```{r}
+as.integer(x)
+```
+## Dates
+
+```{r}
+y <- as.Date("2022-02-12")
+y
+```
+```{r}
+typeof(y)
+```
+```{r}
+class(y)
+```
+**More Data** 
+We can think of dates like an integer (the number of days since the origin, 1 Jan 1970) and an integer (the origin) glued together
+
+```{r}
+as.integer(y)
+```
+```{r}
+as.integer(y) / 365 # roughly 50 yrs
+```
+**Data Frame**
+We can think of data frames like like vectors of equal length glued together
+```{r}
+df <- data.frame(x = 1:2, y = 3:4)
+df
+```
+```{r}
+typeof(df)
+class(df)
+```
+### Manipulate factors
+**lubridate** is the tidyverse-friendly package that makes dealing with dates a little easier
+```{r}
+cat_lovers %>%
+  mutate(handedness = fct_infreq(handedness)) %>%
+  ggplot(mapping = aes(x = handedness)) +
+  geom_bar()
+```
+
+## Working with Dates
+
+```{r}
+hotels %>%
+  select(starts_with("arrival_"))
+```
+
+### Step 1. Construct Dates
+
+```{r}
+library(glue)
+hotels %>%
+  mutate(
+    arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")
+    ) %>% 
+  relocate(arrival_date)
+```
+### Step 2. Count Booking Per Date
+
+```{r}
+hotels %>%
+  mutate(arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) %>%
+  count(arrival_date)
+```
+
+### Step 3. Visualise Booking Per Date
+
+```{r}
+hotels %>%
+  mutate(arrival_date = glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}")) %>%
+  count(arrival_date) %>%
+  ggplot(aes(x = arrival_date, y = n, group = 1)) +
+  geom_line()
+```
+
+## More Percise
+
+
+### Step 1. *Revised* Contruct dates "as dates"
+```{r}
+library(lubridate)
+hotels %>%
+  mutate(
+    arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))
+    ) %>% 
+  relocate(arrival_date)
+```
+
+## Step 2.  Count Booking Per Date
+```{r}
+hotels %>%
+  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %>% 
+  count(arrival_date)
+
+```
+
+### Step 3a.  Visualise Booking Per Date
+
+```{r}
+hotels %>%
+  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %>% 
+  count(arrival_date) %>%
+  ggplot(aes(x = arrival_date, y = n, group = 1)) +
+  geom_line()
+```
+
+### Step 3b.  Visualise Using a Smooth Curve
+
+```{r}
+hotels %>%
+  mutate(arrival_date = ymd(glue("{arrival_date_year} {arrival_date_month} {arrival_date_day_of_month}"))) %>% 
+  count(arrival_date) %>%
+  ggplot(aes(x = arrival_date, y = n, group = 1)) +
+  geom_smooth()
+```
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+---
+title: Data IO
+author: R package build
+date: '2022-02-23'
+slug: data-io
+categories: []
+tags: []
+---
+# Readr
+```{r}
+library(tidyverse)
+```
+
+```{r}
+nobel <- read.csv(file = "https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/nobel.csv")
+nobel
+
+```
+```{r}
+
+df <- tribble(
+  ~x, ~y,
+  1,  "a",
+  2,  "b",
+  3,  "c"
+)
+write_csv(df, file = "https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv")
+read.csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv")
+
+```
+## Variable Names
+
+```{r}
+edibnb_badnames <- read.csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/edibnb-badnames.csv")
+names(edibnb_badnames)
+
+```
+
+```{r}
+
+```
+
+
+
+
