@@ -1,0 +1,55 @@
+---
+title: Tidyverse
+author: R package build
+date: '2022-02-14'
+slug: tidyverse
+categories: []
+tags: []
+---
+## Import File  from GitHub
+
+### Call Library
+```{r}
+library(tidyverse)
+
+``` 
+
+```{r}
+url<- 'https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/hotels.csv'
+hotels <- read_csv(url)
+names(hotels)
+
+```
+### Summary of Variables
+```{r}
+glimpse(hotels)
+
+```
+## Select Commands
+```{r}
+select(hotels, lead_time)
+
+```
+
+```{r}
+hotels %>%
+  select(hotel, lead_time)
+```
+```{r}
+hotels %>%
+  select(hotel, lead_time) %>%
+  arrange(desc(lead_time))
+```
+
+# Final Summary Stats 
+```{r}
+hotels %>%
+  summarise(
+    min_adr = min(adr),
+    mean_adr = mean(adr),
+    median_adr = median(adr),
+    max_adr = max(adr)
+    )
+```
+
+

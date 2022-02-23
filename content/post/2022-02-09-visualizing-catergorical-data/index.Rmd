@@ -1,0 +1,59 @@
+---
+title: Visualizing Catergorical Data
+author: R package build
+date: '2022-02-09'
+slug: visualizing-catergorical-data
+categories:
+  - R
+tags:
+  - GGPLOT2
+  - OpenIntro
+---
+## Call libraries
+```{r}
+library(tidyverse)
+library(openintro)
+loans <- loans_full_schema %>%
+  select(loan_amount, interest_rate, term, grade, 
+         state, annual_income, homeownership, debt_to_income)
+glimpse(loans)
+
+```
+## Flipped Bar Plot 
+
+```{r}
+ggplot(loans, aes(x = homeownership, fill = grade)) +
+  geom_bar(position = "fill")
+```
+
+## Specific Bar Plot
+
+```{r}
+ggplot(loans, aes(y = homeownership,
+                  fill = grade)) +
+  geom_bar(position = "fill") +
+  labs(
+    x = "Proportion",
+    y = "Homeownership",
+    fill = "Grade",
+    title = "Grades of Lending Club loans",
+    subtitle = "and homeownership of lendee"
+  )
+```
+## Different Plots
+# Violin Plot
+
+```{r}
+ggplot(loans, aes(x = homeownership, y = loan_amount)) +
+  geom_violin()
+```
+
+# Ridge Plot
+
+```{r}
+library(ggridges)
+ggplot(loans, aes(x = loan_amount, y = grade, fill = grade, color = grade)) + 
+  geom_density_ridges(alpha = 0.5)
+
+```
+

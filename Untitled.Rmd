@@ -1,0 +1,50 @@
+---
+title: "Rmarkdown_practice"
+author: "Burgosa"
+date: "2/16/2022"
+output: 
+  html_document:
+    toc:TRUE
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+#Sum of 2 + 2
+2+2
+
+#Average Sepal Length
+mean(iris$Sepal.Length)
+```
+
+```{r}
+#Levels of Species 
+unique(iris$Species)
+```
+#Inline Code 
+Two plus two equals `r 2+2` .
+The average Sepal Length is `r mean(iris$Sepal.Length)` .
+The three levels of Species are `r unique(iris$Species)`
+
+#Basics
+
+
+

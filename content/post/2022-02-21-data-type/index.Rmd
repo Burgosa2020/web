@@ -1,0 +1,173 @@
+---
+title: Data Type
+author: R package build
+date: '2022-02-21'
+slug: data-type
+categories: []
+tags: []
+---
+```{r}
+library(tidyverse)
+cat_lovers <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/cat-lovers.csv")
+cat_lovers %>%
+  summarise(mean_cats = mean(number_of_cats))
+```
+```{r}
+?mean
+```
+```{r}
+View(cat_lovers)
+```
+```{r}
+cat_lovers %>%
+  mutate(number_of_cats = case_when(
+    name == "Ginger Clark" ~ 2,
+    name == "Doug Bass"    ~ 3,
+    TRUE                   ~ as.numeric(number_of_cats)
+    )) %>%
+  summarise(mean_cats = mean(number_of_cats))
+```
+```{r}
+cat_lovers %>%
+  mutate(
+    number_of_cats = case_when(
+      name == "Ginger Clark" ~ "2",
+      name == "Doug Bass"    ~ "3",
+      TRUE                   ~ number_of_cats
+      ),
+    number_of_cats = as.numeric(number_of_cats)
+    ) %>%
+  summarise(mean_cats = mean(number_of_cats))
+
+```
+
+```{r}
+cat_lovers <- cat_lovers %>%
+  mutate(
+    number_of_cats = case_when(
+      name == "Ginger Clark" ~ "2",
+      name == "Doug Bass"    ~ "3",
+      TRUE                   ~ number_of_cats
+      ),
+    number_of_cats = as.numeric(number_of_cats)
+    )
+```
+## Logical and charcter 
+```{r}
+typeof(TRUE)
+typeof("hello")
+```
+### Double and Interger
+
+*double* - floating point numerical values (default numerical type)
+```{r}
+typeof(1.335)
+typeof(7)
+
+```
+
+*integer* - integer numerical values (indicated with an L)
+```{r}
+typeof(7L)
+typeof(1:3)
+
+```
+## Concatenation
+Vectors can be constructed using the c() function.
+
+```{r}
+c(1, 2, 3)
+c("Hello", "World!")
+c(c("hi", "hello"), c("bye", "jello"))
+
+```
+
+### Converting between types
+```{r}
+x <- 1:3
+x
+typeof(x)
+```
+```{r}
+y <- as.character(x)
+y
+typeof(y)
+```
+# Special Values
+
+**NA**: Not available
+
+**NaN**: Not a number
+
+**Inf**: Positive infinity
+
+**-Inf**: Negative infinity
+```{r}
+pi / 0
+```
+```{r}
+1/0 - 1/0
+```
+```{r}
+1/0 + 1/0
+```
+```{r}
+0 / 0
+```
+
+```{r}
+x <- c(1, 2, 3, 4, NA)
+mean(x)
+mean(x, na.rm = TRUE)
+summary(x)
+```
+```{r}
+typeof(NA)
+```
+# Mental Model Types
+```{r}
+# TRUE or NA
+TRUE | NA
+```
+```{r}
+# FALSE or NA
+FALSE | NA
+```
+**NA** is unknown, so it could be TRUE or FALSE
+```{r}
+TRUE | TRUE  # if NA was TRUE
+```
+```{r}
+FALSE | TRUE  # if NA was TRUE
+```
+```{r}
+TRUE | FALSE # if NA was FALSE
+```
+```{r}
+FALSE | FALSE # if NA was FALSE
+```
+Doesn't make sense for mathematical operations
+
+Makes sense in the context of missing data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
