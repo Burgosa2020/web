@@ -17,7 +17,6 @@ nobel
 
 ```
 ```{r}
-
 df <- tribble(
   ~x, ~y,
   1,  "a",
@@ -35,11 +34,94 @@ edibnb_badnames <- read.csv("https://raw.githubusercontent.com/Burgosa2020/tidyv
 names(edibnb_badnames)
 
 ```
+## Defining Column Names
 
 ```{r}
+edibnb_col_names <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/edibnb-badnames.csv",
+                             col_names = c("id", "price", 
+                                           "neighbourhood", "accommodates",
+                                           "bathroom", "bedroom", 
+                                           "bed", "review_scores_rating", 
+                                           "n_reviews", "url"))
+names(edibnb_col_names)
+
 
 ```
 
+```{r}
+edibnb_clean_names <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/edibnb-badnames.csv") %>%
+  janitor::clean_names()
+names(edibnb_clean_names)
+```
+
+## Variable Types
+
+```{r}
+read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv")
+read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv", 
+         na = c("", "NA", ".", "9999", "Not applicable"))
+```
+
+```{r}
+read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv", col_types = list(col_double(), 
+                                            col_character(), 
+                                            col_character()))
+```
+
+## Case Studies
+#Whole section not working
+ARIELY FIX IT LATER ON PLEASE
+```{r}
+fav_food <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/favourite-food.csv")
+fav_food
 
 
+fav_food <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/favourite-food.csv") %>%
+  janitor::clean_names()
+fav_food
+```
+# Not working
+
+fav_food <- read_excel("data/favourite-food.xlsx",
+                       na = c("N/A", "99999")) %>%
+  janitor::clean_names()
+fav_food
+## Making age numeric
+fav_food <- fav_food %>%
+  mutate(
+    age = if_else(age == "five", "5", age),
+    age = as.numeric(age)
+    )
+glimpse(fav_food)
+
+fav_food %>%
+  count(ses)
+  
+  ## Make **ses** factor
+  
+  fav_food <- fav_food %>%
+  mutate(ses = fct_relevel(ses, "Low", "Middle", "High"))
+fav_food %>%
+  count(ses)
+  
+  ### Put Together
+  
+  av_food <- read_excel("data/favourite-food.xlsx", na = c("N/A", "99999")) %>%
+  janitor::clean_names() %>%
+  mutate(
+    age = if_else(age == "five", "5", age), 
+    age = as.numeric(age),
+    ses = fct_relevel(ses, "Low", "Middle", "High")
+  )
+fav_food
+
+```
+
+## Out and Back
+ #fix top before continuing 
+```(r)
+write_csv(fav_food, file = "https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/fav-food-clean.csv")
+fav_food_clean <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/fav-food-clean.csv")
+```
+ 
 

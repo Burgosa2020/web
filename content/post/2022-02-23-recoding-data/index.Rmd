@@ -1,0 +1,17 @@
+---
+title: Recoding Data
+author: R package build
+date: '2022-02-23'
+slug: recoding-data
+categories: []
+tags: []
+---
+```{r}
+library(tidyverse)
+```
+
+```{r}
+library(readxl)
+rel_inc <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/relig-income.csv")
+```
+
