@@ -23,7 +23,7 @@ df <- tribble(
   2,  "b",
   3,  "c"
 )
-write_csv(df, file = "https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv")
+write_csv(df, file = "data/df.csv")
 read.csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv")
 
 ```
@@ -69,8 +69,6 @@ read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/df.csv", 
 ```
 
 ## Case Studies
-#Whole section not working
-ARIELY FIX IT LATER ON PLEASE
 ```{r}
 fav_food <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/favourite-food.csv")
 fav_food
@@ -80,33 +78,52 @@ fav_food <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/ma
   janitor::clean_names()
 fav_food
 ```
-# Not working
-
-fav_food <- read_excel("data/favourite-food.xlsx",
+# 
+```{r}
+fav_food <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/favourite-food.csv",
                        na = c("N/A", "99999")) %>%
   janitor::clean_names()
 fav_food
+```
+
+
+```{r}
+fav_food <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/favourite-food.csv",
+                       na = c("N/A", "99999")) %>%
+  janitor::clean_names()
+fav_food
+```
+
 ## Making age numeric
+```{r}
 fav_food <- fav_food %>%
   mutate(
-    age = if_else(age == "five", "5", age),
+    age = if_else(age == "five","5", age),
     age = as.numeric(age)
     )
 glimpse(fav_food)
 
+```
+
+```{r}
+
 fav_food %>%
   count(ses)
   
-  ## Make **ses** factor
+```
+## Make **ses** factor
   
+```{r}
   fav_food <- fav_food %>%
   mutate(ses = fct_relevel(ses, "Low", "Middle", "High"))
 fav_food %>%
   count(ses)
   
-  ### Put Together
-  
-  av_food <- read_excel("data/favourite-food.xlsx", na = c("N/A", "99999")) %>%
+```
+### Put Together
+```{r}
+
+fav_food <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/favourite-food.csv", na = c("N/A", "99999")) %>%
   janitor::clean_names() %>%
   mutate(
     age = if_else(age == "five", "5", age), 
@@ -114,13 +131,13 @@ fav_food %>%
     ses = fct_relevel(ses, "Low", "Middle", "High")
   )
 fav_food
-
 ```
+ 
 
 ## Out and Back
- #fix top before continuing 
-```(r)
-write_csv(fav_food, file = "https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/fav-food-clean.csv")
+#fix top before continuing 
+```{r}
+write_csv(fav_food, file = "data/fav-food-clean.csv")
 fav_food_clean <- read_csv("https://raw.githubusercontent.com/Burgosa2020/tidyverse/main/fav-food-clean.csv")
 ```
  
