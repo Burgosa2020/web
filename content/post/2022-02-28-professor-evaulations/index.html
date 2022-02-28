@@ -1,0 +1,68 @@
+---
+title: Professor Evaulations
+author: R package build
+date: '2022-02-28'
+slug: professor-evaulations
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="preliminatries" class="section level1">
+<h1>Preliminatries</h1>
+<div id="importing-libraries" class="section level2">
+<h2>Importing libraries</h2>
+<pre class="r"><code>library(moderndive)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.6     ✓ dplyr   1.0.7
+## ✓ tidyr   1.2.0     ✓ stringr 1.4.0
+## ✓ readr   2.1.2     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(skimr)
+library(gapminder)</code></pre>
+</div>
+<div id="importing-data" class="section level2">
+<h2>Importing Data</h2>
+<pre class="r"><code>evals_ch5 &lt;- evals %&gt;%
+  select(ID, score, bty_avg, age)</code></pre>
+</div>
+<div id="explore-the-data" class="section level2">
+<h2>Explore the Data</h2>
+<pre class="r"><code>glimpse(evals_ch5)</code></pre>
+<pre><code>## Rows: 463
+## Columns: 4
+## $ ID      &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…
+## $ score   &lt;dbl&gt; 4.7, 4.1, 3.9, 4.8, 4.6, 4.3, 2.8, 4.1, 3.4, 4.5, 3.8, 4.5, 4.…
+## $ bty_avg &lt;dbl&gt; 5.000, 5.000, 5.000, 5.000, 3.000, 3.000, 3.000, 3.333, 3.333,…
+## $ age     &lt;int&gt; 36, 36, 36, 36, 59, 59, 59, 51, 51, 40, 40, 40, 40, 40, 40, 40…</code></pre>
+</div>
+<div id="sample-the-data" class="section level2">
+<h2>Sample the Data</h2>
+<pre class="r"><code>evals_ch5 %&gt;%
+  sample_n(size = 5)</code></pre>
+<pre><code>## # A tibble: 5 × 4
+##      ID score bty_avg   age
+##   &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+## 1   347   4.6    3.5     43
+## 2   376   2.7    4.17    43
+## 3   357   4.5    3.33    50
+## 4    91   4.3    2.5     56
+## 5   358   3.5    5.83    52</code></pre>
+</div>
+<div id="mean-and-median-of-bty-and-score" class="section level2">
+<h2>Mean and Median of BTY and Score</h2>
+<pre class="r"><code>evals_ch5 %&gt;%
+  summarize(mean_bty_avg = mean(bty_avg), mean_score = mean(score),
+            median_bty_avg = median(bty_avg), median_score = median(score))</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##   mean_bty_avg mean_score median_bty_avg median_score
+##          &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;        &lt;dbl&gt;
+## 1         4.42       4.17           4.33          4.3</code></pre>
+</div>
+</div>

@@ -1,0 +1,40 @@
+---
+title: Professor Evaulations
+author: R package build
+date: '2022-02-28'
+slug: professor-evaulations
+categories: []
+tags: []
+---
+# Preliminatries
+## Importing libraries 
+```{r}
+library(moderndive)
+library(tidyverse)
+library(skimr)
+library(gapminder)
+```
+## Importing Data
+```{r}
+evals_ch5 <- evals %>%
+  select(ID, score, bty_avg, age)
+```
+
+## Explore the Data
+```{r}
+glimpse(evals_ch5)
+```
+
+## Sample the Data 
+```{r}
+evals_ch5 %>%
+  sample_n(size = 5)
+```
+## Mean and Median of BTY and Score 
+
+```{r}
+evals_ch5 %>%
+  summarize(mean_bty_avg = mean(bty_avg), mean_score = mean(score),
+            median_bty_avg = median(bty_avg), median_score = median(score))
+```
+
