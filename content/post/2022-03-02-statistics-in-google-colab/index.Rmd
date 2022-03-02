@@ -1,0 +1,13 @@
+---
+title: Statistics in Google Colab
+author: R package build
+date: '2022-03-02'
+slug: statistics-in-google-colab
+categories: []
+tags:
+  - colab
+---
+## Using R in Google Colab for Statistics 
+<script src="https://gist.github.com/Burgosa2020/f6194e8f0bd0eb356aa76ab83f307dd0.js"></script>
+
+
